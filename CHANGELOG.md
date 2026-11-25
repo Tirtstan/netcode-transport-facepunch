@@ -15,6 +15,7 @@ All notable changes to this package will be documented in this file. The format 
 - The game owns the Steam client lifecycle: the transport no longer pumps `SteamClient.RunCallbacks()` or calls `SteamClient.Shutdown()`.
 - `StartClient` and `StartServer` return `false` with an error when Steam or the relay socket is unavailable, instead of continuing with a null manager.
 - Routine disconnects (application end reasons) log at Developer level; unexpected ones log as warnings with the end reason.
+- Requires Netcode for GameObjects 2.0.0 or newer and Unity 6.
 - Assembly no longer references `Unity.Networking.Transport.NetcodeInterop`.
 
 ### Fixed
