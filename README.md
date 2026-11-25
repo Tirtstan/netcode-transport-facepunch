@@ -1,28 +1,25 @@
 # Facepunch Transport for Netcode for GameObjects
 
-By **Nico Thomas**, **Floris van Onna**<br>
-Credits to **Garry Newman** (Author of Facepunch.Steamworks)
+By **Nico Thomas** and **Floris van Onna**. Credits to **Garry Newman**, author of Facepunch.Steamworks.
 
-A fork of the [Unity community Facepunch transport](https://github.com/Unity-Technologies/multiplayer-community-contributions/tree/main/Transports/com.community.netcode.transport.facepunch), maintained alongside the game *Get Rammed* and used in production with Netcode for GameObjects 2.x.
+This is a fork of the [Unity community Facepunch transport](https://github.com/Unity-Technologies/multiplayer-community-contributions/tree/main/Transports/com.community.netcode.transport.facepunch). We use it in our game *Get Rammed* with Netcode for GameObjects 2.13.
 
 ## Install
 
-Package Manager → **Add package from git URL**:
+In the Package Manager, choose **Add package from git URL** and enter:
 
 ```
 https://github.com/Tirtstan/netcode-transport-facepunch.git
 ```
 
-The package name is unchanged (`com.community.netcode.transport.facepunch`), so it is a drop-in replacement for the upstream package.
+The package name matches upstream, so it replaces the upstream package directly.
 
-### Facepunch.Steamworks is not bundled
+This package does not include Facepunch.Steamworks. Add [Facepunch.Steamworks](https://github.com/Facepunch/Facepunch.Steamworks/releases) to your project yourself. We use version 2.4.1.
 
-Unlike upstream, this package does not ship the Facepunch.Steamworks DLLs or the Steam redistributables. Add [Facepunch.Steamworks](https://github.com/Facepunch/Facepunch.Steamworks/releases) (tested with 2.4.1) to your project yourself, e.g. under `Assets/Plugins`.
+## Steam setup
 
-## Your game owns the Steam client
+Your game starts Steam, calls `SteamClient.RunCallbacks()` every frame, and shuts Steam down. The transport does none of this. If Steam isn't running when you start a client or server, the transport calls `SteamClient.Init` with the Steam App ID from the Inspector. If Steam or the relay network isn't available, `StartClient` and `StartServer` return `false`.
 
-The transport no longer runs `SteamClient.RunCallbacks()` or calls `SteamClient.Shutdown()`. Your game is expected to initialise Steam, pump callbacks every frame and shut it down. `StartClient`/`StartServer` call `SteamClient.Init(steamAppId)` only if Steam is not already valid, and return `false` (instead of throwing) when Steam or the relay network is unavailable.
-
-## Differences from upstream
+## Changes from upstream
 
 See [CHANGELOG.md](CHANGELOG.md).
